@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Expenses - Expense Tracker</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="view_expenses.html">View Expenses</a></li>
+        <li><a href="registration.html">Register</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="edit_expenses.html">Edit Expenses</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section>
+      <h2>View Expenses</h2>
+      <table id="expensesTable">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Category</th>
+            <th>Amount</th>
+            <th>Description</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2024 Okemwa's Expense Tracker</p>
+  </footer>
+  <script>
+    function populateExpensesTable(expensesData) {
+      const tbody = document.getElementById("expensesTable").getElementsByTagName("tbody")[0];
+      tbody.innerHTML = "";
+      for (const expense of expensesData) {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${expense.date}</td>
+          <td>${expense.category}</td>
+          <td>${expense.amount}</td>
+          <td>${expense.description || "-"}</td>
+          <td>
+            <a href="edit_expenses.html?id=${expense.id}">Edit</a>
+            <button onclick="deleteExpenses(${expense.id})">Delete</button>
+
+          </td>
+          
+        `;
+        tbody.appendChild(row);
+      }
+    }
+    function fetchExpenses() {
+      return [
+        { id: 1, date: "2024-07-05", category: "Food", amount: 25.00, description: "Groceries" },
+        { id: 2, date: "2024-07-07", category: "Transportation", amount: 10.00, description: "Bus fare" }
+      ];
+    }
+    function deleteExpense(expenseId) {
+      console.log("Expense with ID", expenseId, "deleted (simulation)");
+      const expensesData = fetchExpenses();
+      populateExpensesTable(expensesData);
+    }
+    const expensesData = fetchExpenses();
+    populateExpensesTable(expensesData);
+  </script>
+</body>
+</html>

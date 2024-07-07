@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Expense - Expense Tracker</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="view_expenses.html">View Expenses</a></li>
+        <li><a href="registration.html">Register</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="edit_expenses.html">Edit Expenses</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <h2>Edit your Expense here</h2>
+    <form id="editExpenseForm">
+      <input type="hidden" id="expenseId" name="expenseId">
+      
+      <label for="category">Category:</label>
+      <select id="category" name="category" required>
+        <option value="food">Food</option>
+        <option value="rent">Rent</option>
+        <option value="utilities">Utilities</option>
+        <option value="transportation">Transportation</option>
+        <option value="other">Other</option>
+      </select><br><br>
+
+      <label for="amount">Amount:</label>
+      <input type="number" id="amount" name="amount" required><br><br>
+
+      <label for="date">Date:</label>
+      <input type="date" id="date" name="date" required><br><br>
+
+      <label for="description">Description (optional):</label>
+      <textarea id="description" name="description"></textarea><br><br>
+
+      <button type="submit">click here Save Changes</button>
+    </form>
+  </main>
+  <footer>
+    <p>&copy; 2024 Okemwa's Expense Tracker</p>
+  </footer>
+
+  <script>
+    // Function to fetch expense data by ID (replace with actual API call)
+    function getExpenseData(expenseId) {
+      // Simulate an API call
+      return {
+        id: expenseId,
+        category: "Food",
+        amount: 50.00,
+        date: "2024-07-10",
+        description: "Grocery shopping"
+      };
+    }
+
+    // Function to pre-populate the form with expense details
+    function prePopulateForm(expenseId) {
+      const expenseData = getExpenseData(expenseId);
+      
+      document.getElementById("expenseId").value = expenseData.id;
+      document.getElementById("category").value = expenseData.category;
+      document.getElementById("amount").value = expenseData.amount;
+      document.getElementById("date").value = expenseData.date;
+      document.getElementById("description").value = expenseData.description;
+    }
+
+    // Extract expense ID from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const expenseId = urlParams.get("id");
+
+    // Check if expense ID is provided and pre-populate the form
+    if (expenseId) {
+      prePopulateForm(expenseId);
+    } else {
+      console.error("Missing expense ID in URL");
+    }
+
+    // Handle form submission
+    document.getElementById('editExpenseForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      
+      // Gather form data
+      const expenseId = document.getElementById('expenseId').value;
+      const category = document.getElementById('category').value;
+      const amount = document.getElementById('amount').value;
+      const date = document.getElementById('date').value;
+      const description = document.getElementById('description').value;
+
+      // Simulate sending data to the server (replace with actual API call)
+      console.log('Expense updated:', { expenseId, category, amount, date, description });
+      
+      // Redirect to view expenses or show a success message
+      alert('Expense updated successfully.');
+      window.location.href = 'view_expenses.html';
+    });
+  </script>
+</body>
+</html>
